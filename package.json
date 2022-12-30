@@ -1,0 +1,22 @@
+{
+  "name": "rails-project",
+  "version": "1.0.0",
+  "description": "Journey over interactive map",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamresp/rails-project.git"
+  },
+  "author": "Axenix",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamresp/rails-project/issues"
+  },
+  "homepage": "https://github.com/iamresp/rails-project#readme",
+  "devDependencies": {
+    "serve": "^14.1.2"
+  }
+}
