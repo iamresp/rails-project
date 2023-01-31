@@ -12,14 +12,19 @@ html {
 }
 
 .app {
-    position: relative;
-    background-image: url("../../media/map.svg");
     height: 100%;
-    background-position: inherit;
-    background-repeat: round;
-    background-size: cover;
-  }
+    position: relative;
+    overflow: hidden;
+}
 
-.app > * {
-  position: absolute;
+.map {
+    height: 100%;
+}
+
+.marker {
+    position: absolute;
+}
+
+.marker.collided {
+    background-color: red;
 }
