@@ -1,22 +1,13 @@
 // константы
 const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
 const MAP = document.getElementById("map");
-const PLAYER = document.getElementById("zombie");
+const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
 PLAYER.style.top = "calc(100% - 160px)"; // не используем bottom!
 PLAYER.style.left = "541px";
 
 let objects = [];
-
-/**
- * Возвращает bounding box переданного элемента.
- */
-function computeBoundingBox (elem) {
-    const { bottom, left, right, top } = elem.getBoundingClientRect();
-
-    return { bottom, left, right, top };
-}
 
 /**
  * Проверяет наличие столкновения с любым из объектов. Найдя столкновение, высчитывает направление, в котором
@@ -51,43 +42,48 @@ function detectCollision (x, y, w, h) {
 MAP.addEventListener("load", () => {
     objects = [...MAP.contentDocument.childNodes[0].querySelector("g").childNodes]
         .filter(({ nodeName }) => ["path", "rect"].includes(nodeName))
-        .map(computeBoundingBox);
+        .map(obj => obj.getBoundingClientRect?.());
 });
 
 document.addEventListener("keydown", event => {
     if (!["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"].includes(event.code)) return;
-
-    const h = PLAYER.height, w = PLAYER.width;
-    let { x, y } = PLAYER.getBoundingClientRect();
-
-    const collision = detectCollision(x, y, w, h);
     
-    // тест коллизии
-    if (collision) {
-        PLAYER.classList.add("collided");
-    } else {
-        PLAYER.classList.remove("collided");
-    }
+    PLAYER.classList.add("move");
+
+    let { height, x, width, y } = PLAYER.getBoundingClientRect();
+    const collision = detectCollision(x, y, width, height);
 
     switch (event.code) {
-        case "ArrowRight":
+        case "ArrowRight": {
+            PLAYER.classList.remove("up", "down", "left");
+            PLAYER.classList.add("right");
             if (collision?.right) return;
             x += MOVEMENT_DELTA;
-            break;
-        case "ArrowLeft":
+        } break;
+        case "ArrowLeft": {
+            PLAYER.classList.remove("up", "down", "right");
+            PLAYER.classList.add("left");
             if (collision?.left) return;
             x -= MOVEMENT_DELTA;
-            break;
-        case "ArrowUp":
+        } break;
+        case "ArrowUp": {
+            PLAYER.classList.remove("right", "down", "left");
+            PLAYER.classList.add("up");
             if (collision?.top) return;
             y -= MOVEMENT_DELTA;
-            break;
-        case "ArrowDown":
+        } break;
+        case "ArrowDown": {
+            PLAYER.classList.remove("up", "right", "left");
+            PLAYER.classList.add("down");
             if (collision?.bottom) return;
             y += MOVEMENT_DELTA;
-            break;
+        } break;
     }
     
     PLAYER.style.left = `${x}px`;
     PLAYER.style.top = `${y}px`;
+});
+
+document.addEventListener("keyup", () => {
+    PLAYER.classList.remove("move");
 });
