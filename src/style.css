@@ -21,10 +21,34 @@ html {
     height: 100%;
 }
 
-.marker {
+.marker, .player {
     position: absolute;
 }
 
-.marker.collided {
-    background-color: red;
+.player {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../media/zombie.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform .25s ease;
+}
+
+.player.move {
+    /* здесь будем ставить анимацию движения*/
+    /* background-image: url('../../media/animated.svg'); */
+    background-color: rgb(164, 228, 163); /* @temp */
+}
+
+.player.right {
+    transform: rotateZ(90deg);
+}
+
+.player.down {
+    transform: rotateZ(180deg);
+}
+
+.player.left {
+    transform: rotateZ(-90deg);
 }
