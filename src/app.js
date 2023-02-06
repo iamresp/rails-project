@@ -38,19 +38,11 @@ function detectCollision (x, y, w, h) {
 }
 
 /**
- * Инициализируем объекты по мере загрузки карты.
+ * Обработчик события нажатия на клавишу клавиатуры.
  */
-MAP.addEventListener("load", () => {
-  objects = [
-    ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
-    ...MARKERS,
-  ].filter(({ nodeName }) => ["path", "rect", "IMG"].includes(nodeName))
-    .map(obj => obj.getBoundingClientRect?.());
-});
-
-document.addEventListener("keydown", event => {
+function onKeyDown (event) {
     if (!["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"].includes(event.code)) return;
-    
+
     PLAYER.classList.add("move");
 
     let { height, x, width, y } = PLAYER.getBoundingClientRect();
@@ -82,11 +74,34 @@ document.addEventListener("keydown", event => {
             y += MOVEMENT_DELTA;
         } break;
     }
-    
+
     PLAYER.style.left = `${x}px`;
     PLAYER.style.top = `${y}px`;
-});
+}
 
-document.addEventListener("keyup", () => {
+/**
+ * Обработчик события отпускания клавиши.
+ */
+function onKeyUp () {
     PLAYER.classList.remove("move");
+}
+
+/**
+ * Инициализируем объекты по мере загрузки карты.
+ * Порядок обработчиков важен!
+ */
+MAP.addEventListener("load", () => {
+    objects = [
+        ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
+        ...MARKERS,
+    ].filter(({ nodeName }) => ["path" /** @temp */, "rect", "IMG"].includes(nodeName))
+        .map(obj => obj.getBoundingClientRect?.());
+
+    // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
+    // соответственно, если у него не будет тех же обработчиков, события не будут обрабатываться, пока не вернемся обратно
+    MAP.contentDocument.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
+
+    MAP.contentDocument.addEventListener("keyup", onKeyUp);
+    document.addEventListener("keyup", onKeyUp);
 });
