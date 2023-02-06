@@ -1,6 +1,7 @@
 // константы
 const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
 const MAP = document.getElementById("map");
+const MARKERS = document.querySelectorAll('.marker')
 const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
@@ -40,9 +41,11 @@ function detectCollision (x, y, w, h) {
  * Инициализируем объекты по мере загрузки карты.
  */
 MAP.addEventListener("load", () => {
-    objects = [...MAP.contentDocument.childNodes[0].querySelector("g").childNodes]
-        .filter(({ nodeName }) => ["path", "rect"].includes(nodeName))
-        .map(obj => obj.getBoundingClientRect?.());
+  objects = [
+    ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
+    ...MARKERS,
+  ].filter(({ nodeName }) => ["path", "rect", "OBJECT"].includes(nodeName))
+    .map(obj => obj.getBoundingClientRect?.());
 });
 
 document.addEventListener("keydown", event => {
