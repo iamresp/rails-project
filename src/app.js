@@ -44,7 +44,7 @@ MAP.addEventListener("load", () => {
   objects = [
     ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
     ...MARKERS,
-  ].filter(({ nodeName }) => ["path", "rect", "OBJECT"].includes(nodeName))
+  ].filter(({ nodeName }) => ["path", "rect", "IMG"].includes(nodeName))
     .map(obj => obj.getBoundingClientRect?.());
 });
 
