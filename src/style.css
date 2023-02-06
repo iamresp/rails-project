@@ -52,3 +52,23 @@ html {
 .player.left {
     transform: rotateZ(-90deg);
 }
+
+.marker1 {
+  top: 570px;
+  left: 310px;
+}
+
+.marker2 {
+  top: 400px;
+  left: 310px;
+}
+
+.marker3 {
+  top: 320px;
+  left: 310px;
+}
+
+.marker4 {
+  top: 320px;
+  left: 710px;
+}
