@@ -1,7 +1,7 @@
 // константы
 const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
 const MAP = document.getElementById("map");
-const MARKERS = document.querySelectorAll('.marker')
+const MARKERS = [...document.querySelectorAll('.marker')];
 const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
@@ -15,19 +15,28 @@ let objects = [];
  * оно произошло. Возвращает объект, содержащий признаки стокновения по каждому из направлений.
  */
 function detectCollision (x, y, w, h) {
+    // 1) проверяем наличие столкновений
     const collidedObj = objects.find(
         // при выполнении всех условий считаем, что произошла коллизия объектов
-        ({ bottom, left, right, top }) => [
-            left <= x + w,
-            right >= x,
-            top <= y + h,
-            bottom >= y
-        ].every(Boolean)
+        (obj) => {
+            const { top, right, bottom, left } = obj.getBoundingClientRect(); // снизит производительность, но объяснить будет проще
+
+            return [
+                left <= x + w,
+                right >= x,
+                top <= y + h,
+                bottom >= y
+            ].every(Boolean)
+        }
     )
 
+    // 2) если столкновение произошло, показываем для подходящих объектов диалог и определяем направление столкновения
     if (collidedObj) {
+        if (MARKERS.includes(collidedObj)) {
+            openModal?.(collidedObj.id);
+        }
         // уточняем, по какому направлению движения игрока произошло столкновение
-        const { bottom, left, right, top } = collidedObj;
+        const { bottom, left, right, top } = collidedObj.getBoundingClientRect();
         return {
             top: top <= y && bottom < y + h,
             bottom: bottom >= y + h && top > y,
@@ -94,8 +103,7 @@ MAP.addEventListener("load", () => {
     objects = [
         ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
         ...MARKERS,
-    ].filter(({ nodeName }) => ["path" /** @temp */, "rect", "IMG"].includes(nodeName))
-        .map(obj => obj.getBoundingClientRect?.());
+    ].filter(({ nodeName }) => ["path" /** @temp */, "rect", "IMG"].includes(nodeName));
 
     // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
     // соответственно, если у него не будет тех же обработчиков, события не будут обрабатываться, пока не вернемся обратно
