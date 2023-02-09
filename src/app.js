@@ -1,6 +1,6 @@
 // константы
 const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
-const MAP = document.getElementById("map");
+const WALLS = document.getElementById("walls");
 const MARKERS = [...document.querySelectorAll('.marker')];
 const PLAYER = document.getElementById("player");
 
@@ -99,17 +99,17 @@ function onKeyUp () {
  * Инициализируем объекты по мере загрузки карты.
  * Порядок обработчиков важен!
  */
-MAP.addEventListener("load", () => {
+WALLS.addEventListener("load", () => {
     objects = [
-        ...MAP.contentDocument.childNodes[0].querySelector("g").childNodes,
+        ...WALLS.contentDocument.childNodes[1].querySelectorAll("rect") ,
         ...MARKERS,
-    ].filter(({ nodeName }) => ["path" /** @temp */, "rect", "IMG"].includes(nodeName));
+    ].filter(({ nodeName }) => ["rect", "IMG"].includes(nodeName));
 
     // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
     // соответственно, если у него не будет тех же обработчиков, события не будут обрабатываться, пока не вернемся обратно
-    MAP.contentDocument.addEventListener("keydown", onKeyDown);
+    WALLS.contentDocument.addEventListener("keydown", onKeyDown);
     document.addEventListener("keydown", onKeyDown);
 
-    MAP.contentDocument.addEventListener("keyup", onKeyUp);
+    WALLS.contentDocument.addEventListener("keyup", onKeyUp);
     document.addEventListener("keyup", onKeyUp);
 });
