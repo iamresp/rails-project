@@ -11,14 +11,26 @@ html {
     font-size: 16px;
 }
 
+body {
+    background-color: black;
+}
+
 .app {
-    height: 100%;
+    height: 100vh;
     position: relative;
     overflow: hidden;
 }
 
 .map {
     height: 100%;
+}
+
+.walls {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* opacity: 0; */
 }
 
 .marker, .player {
@@ -54,21 +66,21 @@ html {
 }
 
 .marker1 {
-  top: 570px;
-  left: 310px;
+  top: 548px;
+  left: 1038px;
 }
 
 .marker2 {
-  top: 400px;
-  left: 310px;
+  top: 75px;
+  left: 278px;
 }
 
 .marker3 {
-  top: 320px;
-  left: 310px;
+  top: 75px;
+  left: 1463px;
 }
 
 .marker4 {
-  top: 320px;
-  left: 710px;
+  top: 303px;
+  left: 655px;
 }
