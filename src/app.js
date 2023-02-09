@@ -33,6 +33,7 @@ function detectCollision (x, y, w, h) {
     // 2) если столкновение произошло, показываем для подходящих объектов диалог и определяем направление столкновения
     if (collidedObj) {
         if (MARKERS.includes(collidedObj)) {
+            PLAYER.style.backgroundImage = '../../media/pers1_says.gif'
             openModal?.(collidedObj.id);
         }
         // уточняем, по какому направлению движения игрока произошло столкновение
