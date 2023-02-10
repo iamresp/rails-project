@@ -1,7 +1,7 @@
 // константы
 const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
 const WALLS = document.getElementById("walls");
-const MARKERS = [...document.querySelectorAll('.marker')];
+const MARKERS = document.querySelectorAll('.marker');
 const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
@@ -24,34 +24,32 @@ function onKeyDown (event) {
     // при ручной реализации collidedObj нужно вынести в качестве глобальной переменной,
     const collidedObj = getObject(); // а эту строку - удалить.
     
-    if (MARKERS.includes(collidedObj)) {
+    if (!!collidedObj?.id) {
         PLAYER.classList.add('talk');
         openModal?.(collidedObj.id);
     } else {
         PLAYER.classList.remove('talk');
     }
+    
+    PLAYER.classList.remove("up", "down", "left", "right");
 
     switch (event.code) {
         case "ArrowRight": {
-            PLAYER.classList.remove("up", "down", "left");
             PLAYER.classList.add("right");
             if (collision?.right) return;
             x += MOVEMENT_DELTA;
         } break;
         case "ArrowLeft": {
-            PLAYER.classList.remove("up", "down", "right");
             PLAYER.classList.add("left");
             if (collision?.left) return;
             x -= MOVEMENT_DELTA;
         } break;
         case "ArrowUp": {
-            PLAYER.classList.remove("right", "down", "left");
             PLAYER.classList.add("up");
             if (collision?.top) return;
             y -= MOVEMENT_DELTA;
         } break;
         case "ArrowDown": {
-            PLAYER.classList.remove("up", "right", "left");
             PLAYER.classList.add("down");
             if (collision?.bottom) return;
             y += MOVEMENT_DELTA;
@@ -74,10 +72,7 @@ function onKeyUp () {
  * Порядок обработчиков важен!
  */
 WALLS.addEventListener("load", () => {
-    objects = [
-        ...WALLS.contentDocument.childNodes[1].querySelectorAll("rect") ,
-        ...MARKERS,
-    ].filter(({ nodeName }) => ["rect", "IMG"].includes(nodeName));
+    objects = getObstacles(WALLS, MARKERS);
 
     // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
     // соответственно, если у него не будет тех же обработчиков, события не будут обрабатываться, пока не вернемся обратно
