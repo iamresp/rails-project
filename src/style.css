@@ -52,6 +52,10 @@ body {
     background-image: url('../../media/pers1.gif');
 }
 
+.player.talk {
+    background-image: url('../../media/pers1_says.gif');
+}
+
 .player.right {
     transform: rotateZ(90deg);
 }

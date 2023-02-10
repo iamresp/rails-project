@@ -11,43 +11,6 @@ PLAYER.style.left = "541px";
 let objects = [];
 
 /**
- * Проверяет наличие столкновения с любым из объектов. Найдя столкновение, высчитывает направление, в котором
- * оно произошло. Возвращает объект, содержащий признаки стокновения по каждому из направлений.
- */
-function detectCollision (x, y, w, h) {
-    // 1) проверяем наличие столкновений
-    const collidedObj = objects.find(
-        // при выполнении всех условий считаем, что произошла коллизия объектов
-        (obj) => {
-            const { top, right, bottom, left } = obj.getBoundingClientRect(); // снизит производительность, но объяснить будет проще
-
-            return [
-                left <= x + w,
-                right >= x,
-                top <= y + h,
-                bottom >= y
-            ].every(Boolean)
-        }
-    )
-
-    // 2) если столкновение произошло, показываем для подходящих объектов диалог и определяем направление столкновения
-    if (collidedObj) {
-        if (MARKERS.includes(collidedObj)) {
-            PLAYER.style.backgroundImage = '../../media/pers1_says.gif'
-            openModal?.(collidedObj.id);
-        }
-        // уточняем, по какому направлению движения игрока произошло столкновение
-        const { bottom, left, right, top } = collidedObj.getBoundingClientRect();
-        return {
-            top: top <= y && bottom < y + h,
-            bottom: bottom >= y + h && top > y,
-            left: left <= x && right < x + w,
-            right: right >= x + w && left > x,
-        }
-    }
-}
-
-/**
  * Обработчик события нажатия на клавишу клавиатуры.
  */
 function onKeyDown (event) {
@@ -55,8 +18,18 @@ function onKeyDown (event) {
 
     PLAYER.classList.add("move");
 
-    let { height, x, width, y } = PLAYER.getBoundingClientRect();
-    const collision = detectCollision(x, y, width, height);
+    let { x, y } = PLAYER.getBoundingClientRect();
+    const collision = detectCollision(PLAYER, objects);
+
+    // при ручной реализации collidedObj нужно вынести в качестве глобальной переменной,
+    const collidedObj = getObject(); // а эту строку - удалить.
+    
+    if (MARKERS.includes(collidedObj)) {
+        PLAYER.classList.add('talk');
+        openModal?.(collidedObj.id);
+    } else {
+        PLAYER.classList.remove('talk');
+    }
 
     switch (event.code) {
         case "ArrowRight": {
