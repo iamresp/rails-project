@@ -101,7 +101,12 @@ function onKeyUp() {
  * Инициализируем объекты по мере загрузки карты.
  * Порядок обработчиков важен!
  */
-WALLS.addEventListener("load", () => {
+WALLS.addEventListener("load", onMapLoad);
+
+/**
+ * Обработчик загрузки карты.
+ */
+function onMapLoad() {
   objects = getObstacles(WALLS, MARKERS);
 
   // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
@@ -111,4 +116,4 @@ WALLS.addEventListener("load", () => {
 
   WALLS.contentDocument.addEventListener("keyup", onKeyUp);
   document.addEventListener("keyup", onKeyUp);
-});
+}
