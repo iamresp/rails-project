@@ -55,16 +55,19 @@ function onKeyDown(event) {
         x = x + MOVEMENT_DELTA;
       }
       break;
+
     // Обработка события при нажатии кнопки влево
     case "example1":
       /** Напиши сам  */
       break;
+
     // Обработка события при нажатии кнопки вверх
     case "example2":
       {
         /** Напиши сам */
       }
       break;
+
     // Обработка события при нажатии кнопки вниз
     case "example3":
       {
