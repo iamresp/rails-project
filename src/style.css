@@ -1,71 +1,76 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 body {
-    background-color: black;
+  background-color: white;
 }
 
 .app {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
 .map {
-    height: 100%;
+  height: 100%;
 }
 
 .walls {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
-.marker, .player {
-    position: absolute;
+.marker,
+.player {
+  position: absolute;
 }
 
 .player {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../media/pers1_stay.gif');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: transform .25s ease;
+  /* Задает ширину и высоту для игрока*/
+  width: 30px;
+  height: 30px;
+  /* Задает картинку для игрока*/
+  background-image: url("../../media/pers1_stay.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.25s ease;
 }
 
 .player.move {
-    /* здесь будем ставить анимацию движения*/
-    background-image: url('../../media/pers1.gif');
+  /* здесь будем ставить анимацию движения*/
+  background-image: url("../../media/pers1.gif");
 }
 
 .player.talk {
-    background-image: url('../../media/pers1_says.gif');
+  background-image: url("../../media/pers1_says.gif");
 }
 
+/* Разворачивает игрока направо*/
 .player.right {
-    transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
-
+/* Разворачивает игрока вниз*/
 .player.down {
-    transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
-
+/* Разворачивает игрока налево*/
 .player.left {
-    transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
 }
 
 .marker1 {

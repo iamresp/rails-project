@@ -1,12 +1,12 @@
 // константы
-const MOVEMENT_DELTA = 1;
+const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
 const WALLS = document.getElementById("walls");
 const MARKERS = document.querySelectorAll(".marker");
 const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
-PLAYER.style.top = "calc(100% - 300px)";
-PLAYER.style.left = "100px";
+PLAYER.style.top = "calc(100% - 480px)";
+PLAYER.style.left = "150px";
 
 let objects = [];
 
@@ -15,60 +15,77 @@ let objects = [];
  */
 function onKeyDown(event) {
   //Проверка на иную нажатую кнопку, кроме "стрелки". Если нажата не "стрелка", то ничего не должно выполниться
-  if (!["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"].includes(event.code)) return;
+  if (
+    event.code != "ArrowUp" &&
+    event.code != "ArrowRight" &&
+    event.code != "ArrowDown" &&
+    event.code != "ArrowLeft"
+  )
+    return;
 
   PLAYER.classList.add("move");
 
+  // Получаем координаты игрока
   let { x, y } = PLAYER.getBoundingClientRect();
+
+  // Проверка на возможность столкновения и его направления
   const collision = detectCollision(PLAYER, objects);
 
+  // getObject возвращает объект, с которым произошло столкновение
   const collidedObj = getObject();
 
-  if (collidedObj) {
-    if (collidedObj.id) {
-      PLAYER.classList.add("talk");
-      openModal(collidedObj.id);
-    } else {
-      PLAYER.classList.remove("talk");
-    }
+  if (collidedObj && collidedObj.id) {
+    PLAYER.classList.add("talk");
+    //Открытие модалки с видео
+    openModal(collidedObj.id);
+  } else {
+    PLAYER.classList.remove("talk");
   }
 
   PLAYER.classList.remove("up", "down", "left", "right");
 
   switch (event.code) {
+    // Обработка события при нажатии кнопки вправо
     case "ArrowRight":
       {
         PLAYER.classList.add("right");
-        if (collision?.right) return;
+        // Если справа есть препятствие, то ничего не делать
+        if (collision && collision.right) return;
         x = x + MOVEMENT_DELTA;
       }
       break;
+    // Обработка события при нажатии кнопки влево
     case "ArrowLeft":
       {
         /** Напиши сам */
         PLAYER.classList.add("left");
-        if (collision?.left) return;
+        // Если слева есть препятствие, то ничего не делать
+        if (collision && collision.left) return;
         x = x - MOVEMENT_DELTA;
       }
       break;
+    // Обработка события при нажатии кнопки вверх
     case "ArrowUp":
       {
         /** Напиши сам */
         PLAYER.classList.add("up");
-        if (collision?.top) return;
+        // Если сверху есть препятствие, то ничего не делать
+        if (collision && collision.top) return;
         y = y - MOVEMENT_DELTA;
       }
       break;
+    // Обработка события при нажатии кнопки вниз
     case "ArrowDown":
       {
         /** Напиши сам */
         PLAYER.classList.add("down");
-        if (collision?.bottom) return;
+        // Если снизу есть препятствие, то ничего не делать
+        if (collision && collision.bottom) return;
         y = y + MOVEMENT_DELTA;
       }
       break;
   }
-
+  // Задаем положение игрока на карте
   PLAYER.style.left = `${x}px`;
   PLAYER.style.top = `${y}px`;
 }

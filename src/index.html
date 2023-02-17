@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./media/favicon.ico" />
+    <link rel="stylesheet" href="./style.css" />
 
-        <link rel="shortcut icon" href="./media/favicon.ico">
-        <link rel="stylesheet" href="./style.css">
+    <title>Онбординг</title>
+  </head>
 
-        <title>Онбординг</title>
-    </head>
+  <body>
+    <div class="app">
+      <img class="map" src="../../media/map.svg" />
 
-    <body>
-        <div class="app">
-            <img class="map" src="../../media/map.svg" />
-
-            <img id="hr" src="../../media/markers/main.svg" class="marker marker1" />
-            <img id="marketing" src="../../media/markers/main.svg" class="marker marker2" />
-            <img id="sw" src="../../media/markers/main.svg" class="marker marker3" />
-            <img id="teamlead" src="../../media/markers/main.svg" class="marker marker4" />
-
-            <div id="player" class="player"></div>
-        </div>
-        <script src="https://iamresp.github.io/rails-lib/rails-common-lib.min.js"></script>
-        <object id="walls" class="walls" data="../../media/walls.svg"></object>
-        <script src="./app.js"></script>
-    </body>
-
+      <img id="hr" src="../../media/markers/main.svg" class="marker marker1" />
+      <img id="marketing" src="../../media/markers/main.svg" class="marker marker2" />
+      <img id="sw" src="../../media/markers/main.svg" class="marker marker3" />
+      <img id="teamlead" src="../../media/markers/main.svg" class="marker marker4" />
+      <!--
+              Тэг отвечающий за игрока
+            -->
+      <div id="player" class="player"></div>
+    </div>
+    <script src="https://iamresp.github.io/rails-lib/rails-common-lib.min.js"></script>
+    <object id="walls" class="walls" data="../../media/walls.svg"></object>
+    <script src="./app.js"></script>
+  </body>
 </html>
