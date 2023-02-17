@@ -40,11 +40,10 @@ body {
 }
 
 .player {
-  /* Задает ширину и высоту для игрока*/
-  width: 30px;
-  height: 30px;
-  /* Задает картинку для игрока*/
-  background-image: url("../../media/pers1_stay.gif");
+  /* Ниже задать ширину и высоту игроку*/
+
+  /* Ниже задать ссылку на персонажа*/
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,12 +1,13 @@
-// константы
-const MOVEMENT_DELTA = 1; // т. к. на карте есть очень мелкие элементы (~2px), если выставить значение больше, можно проскочить объект целиком
+// Неизменяемые переменные
+const MOVEMENT_DELTA = 1;
+
 const WALLS = document.getElementById("walls");
 const MARKERS = document.querySelectorAll(".marker");
 const PLAYER = document.getElementById("player");
 
 // нач. позиция игрока
-PLAYER.style.top = "calc(100% - 480px)";
-PLAYER.style.left = "150px";
+PLAYER.style.top = "calc(100% - px)";
+PLAYER.style.left = "px";
 
 let objects = [];
 
@@ -56,38 +57,24 @@ function onKeyDown(event) {
       break;
     // Обработка события при нажатии кнопки влево
     case "ArrowLeft":
-      {
-        /** Напиши сам */
-        PLAYER.classList.add("left");
-        // Если слева есть препятствие, то ничего не делать
-        if (collision && collision.left) return;
-        x = x - MOVEMENT_DELTA;
-      }
+      /** Напиши сам  */
       break;
     // Обработка события при нажатии кнопки вверх
     case "ArrowUp":
       {
         /** Напиши сам */
-        PLAYER.classList.add("up");
-        // Если сверху есть препятствие, то ничего не делать
-        if (collision && collision.top) return;
-        y = y - MOVEMENT_DELTA;
       }
       break;
     // Обработка события при нажатии кнопки вниз
-    case "ArrowDown":
+    case "":
       {
         /** Напиши сам */
-        PLAYER.classList.add("down");
-        // Если снизу есть препятствие, то ничего не делать
-        if (collision && collision.bottom) return;
-        y = y + MOVEMENT_DELTA;
       }
       break;
   }
   // Задаем положение игрока на карте
-  PLAYER.style.left = `${x}px`;
-  PLAYER.style.top = `${y}px`;
+  PLAYER.style.left = `${x}`;
+  PLAYER.style.top = `${y}`;
 }
 
 /**
@@ -104,8 +91,6 @@ function onKeyUp() {
 WALLS.addEventListener("load", () => {
   objects = getObstacles(WALLS, MARKERS);
 
-  // у object свой, отдельный документ - если кликнуть по нему, работа перейдет в его контекст
-  // соответственно, если у него не будет тех же обработчиков, события не будут обрабатываться, пока не вернемся обратно
   WALLS.contentDocument.addEventListener("keydown", onKeyDown);
   document.addEventListener("keydown", onKeyDown);
 
