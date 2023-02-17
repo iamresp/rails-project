@@ -88,9 +88,14 @@ function onKeyUp() {
  * Инициализируем объекты по мере загрузки карты.
  * Порядок обработчиков важен!
  */
-WALLS.addEventListener("load", () => {
+WALLS.addEventListener("load", onMapLoad);
+
+/**
+ * Обработчик загрузки карты.
+ */
+function onMapLoad() {
   objects = getObstacles(WALLS, MARKERS);
 
   WALLS.contentDocument.addEventListener("keydown", onKeyDown);
   document.addEventListener("keydown", onKeyDown);
-});
+}
