@@ -45,8 +45,8 @@ body {
 
 .player {
   /* Задает ширину и высоту для игрока*/
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   /* Задает картинку для игрока*/
   background-image: url("../../media/person/pers1_stay.gif");
   background-size: cover;
@@ -118,6 +118,6 @@ body {
 }
 
 .marker8 {
-  top: 203px;
+  top: 215px;
   left: 655px;
 }
