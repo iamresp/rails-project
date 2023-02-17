@@ -55,26 +55,29 @@ function onKeyDown(event) {
         x = x + MOVEMENT_DELTA;
       }
       break;
+
     // Обработка события при нажатии кнопки влево
-    case "ArrowLeft":
+    case "example1":
       /** Напиши сам  */
       break;
+
     // Обработка события при нажатии кнопки вверх
-    case "ArrowUp":
+    case "example2":
       {
         /** Напиши сам */
       }
       break;
+
     // Обработка события при нажатии кнопки вниз
-    case "":
+    case "example3":
       {
         /** Напиши сам */
       }
       break;
   }
   // Задаем положение игрока на карте
-  PLAYER.style.left = `${x}`;
-  PLAYER.style.top = `${y}`;
+  PLAYER.style.left = `${x}px`;
+  PLAYER.style.top = `${y}px`;
 }
 
 /**
@@ -88,12 +91,14 @@ function onKeyUp() {
  * Инициализируем объекты по мере загрузки карты.
  * Порядок обработчиков важен!
  */
-WALLS.addEventListener("load", () => {
+WALLS.addEventListener("load", onMapLoad);
+
+/**
+ * Обработчик загрузки карты.
+ */
+function onMapLoad() {
   objects = getObstacles(WALLS, MARKERS);
 
   WALLS.contentDocument.addEventListener("keydown", onKeyDown);
   document.addEventListener("keydown", onKeyDown);
-
-  WALLS.contentDocument.addEventListener("keyup", onKeyUp);
-  document.addEventListener("keyup", onKeyUp);
-});
+}

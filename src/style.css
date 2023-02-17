@@ -39,6 +39,10 @@ body {
   position: absolute;
 }
 
+.marker {
+  height: 30px;
+}
+
 .player {
   /* Ниже задать ширину и высоту игроку*/
 
@@ -52,11 +56,11 @@ body {
 
 .player.move {
   /* здесь будем ставить анимацию движения*/
-  background-image: url("../../media/pers1.gif");
+  background-image: url("../../media/person/pers1.gif");
 }
 
 .player.talk {
-  background-image: url("../../media/pers1_says.gif");
+  background-image: url("../../media/person/pers1_says.gif");
 }
 
 /* Разворачивает игрока направо*/
@@ -69,25 +73,49 @@ body {
 }
 /* Разворачивает игрока налево*/
 .player.left {
-  transform: rotateZ(-90deg);
 }
 
 .marker1 {
-  top: 548px;
-  left: 1038px;
+  top: 829px;
+  left: 864px;
 }
 
 .marker2 {
-  top: 75px;
+  top: 60px;
   left: 278px;
+  rotate: 180deg;
 }
 
 .marker3 {
-  top: 75px;
-  left: 1463px;
+  top: 399px;
+  left: 1631px;
 }
 
 .marker4 {
-  top: 303px;
+  top: 125px;
+  left: 655px;
+  rotate: 90deg;
+}
+
+.marker5 {
+  rotate: -90deg;
+  top: 88px;
+  left: 725px;
+}
+
+.marker6 {
+  top: 331px;
+  left: 858px;
+  rotate: 90deg;
+}
+
+.marker7 {
+  top: 126px;
+  left: 877px;
+  rotate: 90deg;
+}
+
+.marker8 {
+  top: 203px;
   left: 655px;
 }
