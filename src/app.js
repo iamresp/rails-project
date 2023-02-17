@@ -56,25 +56,25 @@ function onKeyDown(event) {
       }
       break;
     // Обработка события при нажатии кнопки влево
-    case "ArrowLeft":
+    case "example1":
       /** Напиши сам  */
       break;
     // Обработка события при нажатии кнопки вверх
-    case "ArrowUp":
+    case "example2":
       {
         /** Напиши сам */
       }
       break;
     // Обработка события при нажатии кнопки вниз
-    case "":
+    case "example3":
       {
         /** Напиши сам */
       }
       break;
   }
   // Задаем положение игрока на карте
-  PLAYER.style.left = `${x}`;
-  PLAYER.style.top = `${y}`;
+  PLAYER.style.left = `${x}px`;
+  PLAYER.style.top = `${y}px`;
 }
 
 /**
@@ -93,7 +93,4 @@ WALLS.addEventListener("load", () => {
 
   WALLS.contentDocument.addEventListener("keydown", onKeyDown);
   document.addEventListener("keydown", onKeyDown);
-
-  WALLS.contentDocument.addEventListener("keyup", onKeyUp);
-  document.addEventListener("keyup", onKeyUp);
 });

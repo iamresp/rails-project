@@ -69,7 +69,6 @@ body {
 }
 /* Разворачивает игрока налево*/
 .player.left {
-  transform: rotateZ(-90deg);
 }
 
 .marker1 {
