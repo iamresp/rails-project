@@ -1,71 +1,112 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 body {
-    background-color: black;
+  background-color: black;
 }
 
 .app {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
 .map {
-    height: 100%;
+  height: 100%;
 }
 
 .walls {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
-.marker, .player {
-    position: absolute;
+.marker,
+.player {
+  position: absolute;
 }
 
 .player {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../media/pers1_stay.gif');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: transform .25s ease;
+  width: 30px;
+  height: 30px;
+  background-image: url("../../media/animation/stay/frame_0.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.25s ease;
+  overflow: hidden;
 }
 
-.player.move {
-    /* здесь будем ставить анимацию движения*/
-    background-image: url('../../media/pers1.gif');
+@keyframes frame-animation {
+  100% {
+    transform: translateX(-400%);
+  }
 }
+
+:root {
+  --frames-number: 4;
+}
+
+/* по-умолчанию анимация заблокирована */
+.player > .player-move-animation {
+  display: none;
+}
+
+/* Анимация движения - начало ------------*/
+.player.move {
+  background-image: none;
+}
+
+/* Когда добавляется класс move, то это триггерит анимацию движения */
+.player.move > .player-move-animation {
+  display: flex;
+}
+
+.player-move-animation {
+  animation: frame-animation 1s infinite;
+  animation-timing-function: steps(var(--frames-number));
+  width: var(--frames-number) * 100%;
+}
+
+.animation-frame {
+  display: block;
+  flex-basis: 100% / var(--frames-number);
+  max-width: 100% / var(--frames-number);
+  width: 100% / var(--frames-number);
+}
+
+.animation-frame > img {
+  width: 30px;
+}
+/* Анимация движения - конец -------------*/
 
 .player.talk {
-    background-image: url('../../media/pers1_says.gif');
+  background-image: url("../../media/pers1_says.gif");
 }
 
 .player.right {
-    transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 
 .player.down {
-    transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 
 .player.left {
-    transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
 }
 
 .marker1 {
